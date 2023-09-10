@@ -47,12 +47,12 @@
                                     <form class="user" action="sign-in.do" method="post">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
-                                                id="id" aria-describedby="emailHelp"
+                                                id="id" name="id" aria-describedby="emailHelp"
                                                 placeholder="Enter Your ID...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="password" placeholder="Password">
+                                                id="password" name="password" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">

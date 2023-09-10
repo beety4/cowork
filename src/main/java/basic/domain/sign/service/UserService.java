@@ -24,8 +24,10 @@ public class UserService {
 	
 	public boolean loginAction(String id, String password) {
 		String DBpw = userMapper.getPassword(id);
+		if(DBpw == null) {
+			return false;
+		}
 		String ENCpw = password;	// Encrypt 추가 필요
-		
 		return DBpw.equals(ENCpw) ? true : false;
 	}
 }
