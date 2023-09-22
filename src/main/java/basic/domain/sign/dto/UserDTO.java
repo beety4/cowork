@@ -20,4 +20,5 @@ public class UserDTO {
 	private int emailcheck;
 	private String joindate;
 	private String img;
+	private String roles;
 }

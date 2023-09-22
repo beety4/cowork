@@ -5,7 +5,5 @@ import basic.domain.sign.dto.UserDTO;
 
 @Mapper
 public interface UserMapper {
-	public UserDTO getUserDTO();
-	public void setUserDTO(UserDTO userDTO);
-	public String getPassword(String id);
+	public void insertUserDTO(UserDTO userDTO);
 }
