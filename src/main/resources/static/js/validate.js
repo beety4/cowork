@@ -64,6 +64,11 @@ function registercheck() {
 		birth.focus();
 		return false;
 	}
+	
+	if (keycheck == 0) {
+		alert("이메일 인증을 완료해주세요");
+		return false;
+	}
 
     document.register.submit();   
 }

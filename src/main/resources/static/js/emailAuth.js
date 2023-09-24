@@ -1,29 +1,38 @@
+var timeattack = 0;
+var keycheck = 0;
+
 function sendKey(){
 	time();
-	//$("#time").css("display","block");
 	$("#check").css("display","block");
     $.ajax({
     	url:"/sendmail",
         type:"post",
-        dataType:"json",
+        dataType:"text",
         data:{"email" : $("#email").val()},
         success: function(data){
-            alert("인증번호 발송");
-            document.getElementById("Confirm").innerHTML(data);
-            $("#Confirm").attr("value",data);
-        }
+            $('#getAuthKey').text(data);
+        },
+        error: function(request, status, error) {
+			console.log("code : " + request.status);
+			console.log("message : " + request.responseText);
+			console.log("error : " + error);
+		}
+        
 	});
 };
   
 function checKey(){
-    var number1 = $("#authKey").val();
-    var number2 = $("#Confirm").val();
-    console.log(number1);
-    console.log("   test   ");
-    console.log(number2);
+    var num1 = $("#authKey").val();
+    var num2 = $("#getAuthKey").text();
 
-    if(number1 == number2){
+	if(timeattack == 1) {
+		alert("시간이 초과되었습니다!");
+		return;
+	}
+
+    if(num1 == num2){
         alert("인증되었습니다.");
+        keycheck = 1;
     }else{
         alert("번호가 다릅니다.");
     }
@@ -47,6 +56,9 @@ function time() {
 				if(time<0) {
 					clearInterval(x);
 					document.getElementById("time").innerHTML = "시간초과";
+					document.getElementById("getAuthKey").innerHTML = "OUT8OUT2OUT";
+					timeattack = 1;
+					keycheck = 0;
 				}
 			}, 1000);	
 	} catch (error) {

@@ -21,6 +21,8 @@ public class UserDetailConfig implements UserDetailsService {
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		UserDTO userDTO = service.getOwninfo(id);
 		
+		if(userDTO == null) throw new UsernameNotFoundException("Not FOUND");
+		
 		return User.builder()
 				.username(userDTO.getId())
 				.password(userDTO.getPassword())

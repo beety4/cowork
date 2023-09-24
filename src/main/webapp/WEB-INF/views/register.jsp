@@ -57,15 +57,14 @@
                                     <input type="button" class="btn btn-primary btn-user btn-block"
                                 	value="인증번호 전송" style="width:20%;" onclick="sendKey();">
                                 </div>
-                                <div class="form-group" style="text-align:center;display:none; color:red;" id="time" name="time"></div>
-                                <div class="form-group" id="check" name="check" style="display:none;">
+                                <div class="form-group" id="check" style="display:none;">
                                     <input type="text" class="form-control form-control-user w80fl" id="authKey"
-                                        name="authKey" placeholder="Certification Number">
+                                        name="authKey" placeholder="Certification Number" maxlength="5">
                                     <input type="button" class="btn btn-primary btn-user btn-block"
                                 	value="인증번호 확인" style="width:20%;" onclick="checKey();">
+                                	<div class="form-group" style="text-align:center; color:red;" id="time"></div>
                                 </div>
-                                
-                                <div id="Confirm" style="hidden"></div>
+                                <div id="getAuthKey" style="display: none;"></div>
                                 
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
