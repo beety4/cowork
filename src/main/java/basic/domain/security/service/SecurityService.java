@@ -1,19 +1,17 @@
 package basic.domain.security.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import basic.domain.security.mapper.SecurityMapper;
 import basic.domain.sign.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class SecurityService {
-	private SecurityMapper mapper;
-	
-	@Autowired
-	public SecurityService(SecurityMapper mapper) {
-		this.mapper = mapper;
-	}
+	private final SecurityMapper mapper;
 	
 	public UserDTO getOwninfo(String id) {
 		return mapper.getOwninfo(id);

@@ -1,23 +1,21 @@
 package basic.domain.email.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import basic.domain.email.config.CreateKey;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
+@Transactional
 public class EmailService {
 	private final JavaMailSender javaMailSender;
 	private static final String SENDER = "202244016@itc.ac.kr";
 	private static String authKey;
-	
-	@Autowired
-	public EmailService(JavaMailSender javaMailSender) {
-		this.javaMailSender = javaMailSender;
-	}
 	
 	public MimeMessage writeMSG(String sendTo) {
 		authKey = CreateKey.newKey();

@@ -5,14 +5,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import basic.domain.email.service.EmailService;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class EmailController {
-	private EmailService emailservice;
-	
-	public EmailController(EmailService emailservice) {
-		this.emailservice = emailservice;
-	}
+	private final EmailService emailservice;
 	
 	@ResponseBody
 	@PostMapping("/sendmail")

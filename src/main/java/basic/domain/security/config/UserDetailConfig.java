@@ -8,14 +8,12 @@ import org.springframework.stereotype.Component;
 
 import basic.domain.security.service.SecurityService;
 import basic.domain.sign.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class UserDetailConfig implements UserDetailsService {
-	private SecurityService service;
-	
-	public UserDetailConfig(SecurityService service) {
-		this.service = service;
-	}
+	private final SecurityService service;
 	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
