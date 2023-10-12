@@ -1,7 +1,10 @@
 package basic.global.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import basic.domain.security.config.PrincipalDetails;
 
 @Controller
 public class MainController {
@@ -9,14 +12,23 @@ public class MainController {
 	public String index() {
 		return "index";
 	}
+	
+
 	@GetMapping("/404")
 	public String err() {
 		return "404";
 	}
+	
+	
 	@GetMapping("/blank")
-	public String blank() {
+	public String blank(@AuthenticationPrincipal PrincipalDetails details) {
+		System.out.println(details.getName());
+		System.out.println(details.getUsername());
 		return "blank";
 	}
+	
+	
+	
 	@GetMapping("/buttons")
 	public String buttons() {
 		return "buttons";

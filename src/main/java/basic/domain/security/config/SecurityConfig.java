@@ -3,6 +3,8 @@ package basic.domain.security.config;
 import java.util.stream.Stream;
 
 import jakarta.servlet.DispatcherType;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,10 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import basic.domain.security.service.PricipalOauth2UserService;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	
+	@Autowired
+	PricipalOauth2UserService service;
+	
 	private static final String[] PERMIT_URL = new String[] {
 		"/", "/assets/**", "/css/**", "/img/**", "/js/**", "/scss/**", "/vender/**"
 		, "/sign/*", "/charts", "404", "/sendmail"
@@ -43,7 +51,14 @@ public class SecurityConfig {
 				.permitAll())
 			.logout((logout) -> logout
 				.logoutSuccessUrl("/")
-				.permitAll());
+				.permitAll())
+			
+			.oauth2Login((oauth) -> oauth
+                .loginPage("/sign/sign-in.do")
+                .defaultSuccessUrl("/", true)
+                .userInfoEndpoint((userInfo) -> userInfo
+                		.userService(service)));
+
 		return http.build();
 	}
 

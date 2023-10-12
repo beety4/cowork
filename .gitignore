@@ -1,2 +1,3 @@
 application-db.properties
 application-email.properties
+application-oauth2.properties

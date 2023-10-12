@@ -2,9 +2,12 @@ package basic.domain.sign.dto;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class UserDTO {
 	private String id;
 	private String password;
@@ -14,11 +17,9 @@ public class UserDTO {
 	private LocalDate birth;
 	
 	private String gender;
-	private String phone;
 	private String email;
-	private String emailhash;
-	private int emailcheck;
 	private String joindate;
 	private String img;
+	private String depart;
 	private String roles;
 }
