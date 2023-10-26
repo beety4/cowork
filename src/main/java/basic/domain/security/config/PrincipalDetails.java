@@ -76,7 +76,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return (String) attributes.get("sub");
+		return userDTO.getName();
+		//return (String) attributes.get("sub");
 	}
 
 }

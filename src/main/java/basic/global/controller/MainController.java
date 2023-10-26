@@ -5,11 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import basic.domain.security.config.PrincipalDetails;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
 	@GetMapping("/")
+	//public String index(@AuthenticationPrincipal PrincipalDetails pd, HttpSession s) {
 	public String index() {
+//		if(pd == null) {
+//			s.setAttribute("sID", null);
+//		} else {
+//			s.setAttribute("sID", pd.getName());
+//		}
+		//s.setAttribute("sID", null);
 		return "index";
 	}
 	
@@ -23,14 +31,14 @@ public class MainController {
 	@GetMapping("/blank")
 	public String blank(@AuthenticationPrincipal PrincipalDetails details) {
 		System.out.println(details.getName());
-		System.out.println(details.getUsername());
 		return "blank";
 	}
 	
 	
 	
 	@GetMapping("/buttons")
-	public String buttons() {
+	public String buttons(HttpSession s) {
+		System.out.println(s.getAttribute("sID"));
 		return "buttons";
 	}
 	@GetMapping("/cards")

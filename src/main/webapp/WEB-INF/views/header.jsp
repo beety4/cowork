@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter"%>
+<%@ page import="basic.domain.security.config.PrincipalDetails" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -327,11 +329,32 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
+
+						<%
+							// String sID = (String)session.getAttribute("sID");
+						
+							PrincipalDetails principal = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+							String sID = principal.getName();
+						
+							if(sID == null) {					
+						%>
+						<!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="/sign/sign-in.do" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                        </li>
+                        <%
+							} else {
+                        %>
+
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=sID %></span>
                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
                             </a>
@@ -351,12 +374,19 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <!-- <a class="dropdown-item" href="/logout" data-toggle="modal" data-target="#logoutModal"> -->
+                                <a class="dropdown-item" href="/logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                             </div>
                         </li>
+                        
+                        <%
+							}
+                        %>
+                        
+                        
 
                     </ul>
 

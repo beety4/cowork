@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Transactional
 public class PricipalOauth2UserService extends DefaultOAuth2UserService {
-	private final SecurityMapper mapper;
+	private final SecurityMapper securityMapper;
 	private final UserMapper userMapper;
 	private final BCryptPasswordEncoder bcryptEncoder;
 	
@@ -30,15 +30,15 @@ public class PricipalOauth2UserService extends DefaultOAuth2UserService {
 		String provider = userRequest.getClientRegistration().getClientId();
 		String providerId = oauth2User.getAttribute("sub");
 		String id = provider + "_" + providerId;
-		String password = bcryptEncoder.encode("blablabla");
+		String password = bcryptEncoder.encode("nothing");
 		String email = oauth2User.getAttribute("email");
 		
-		UserDTO userDTO = mapper.getOwninfo(providerId);
+		UserDTO userDTO = securityMapper.getOwninfo(providerId);
 		if(userDTO == null) {
 			userDTO = UserDTO.builder()
 					.id(providerId)
 					.password(password)
-					.name(email)
+					.name(email.split("@")[0])
 					.birth(null)
 					.gender("M")
 					.email(email)
