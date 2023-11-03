@@ -21,10 +21,11 @@ public class SecurityConfig {
 	
 	@Autowired
 	PricipalOauth2UserService service;
+	AuthFailureHandler authFailureHandler;
 	
 	private static final String[] PERMIT_URL = new String[] {
-		"/", "/assets/**", "/css/**", "/img/**", "/js/**", "/scss/**", "/vender/**"
-		, "/sign/*", "/charts", "404", "/sendmail"
+		"/", "/assets/**", "/css/**", "/img/**", "/js/**", "/scss/**",
+		"/vender/**", "/sign/*", "/404", "/sendmail"
 	};
 	
 	@Bean
@@ -47,7 +48,8 @@ public class SecurityConfig {
 				.usernameParameter("id")
 				.passwordParameter("password")
 				.defaultSuccessUrl("/", true)
-				.failureUrl("/404")
+				.failureUrl("/sign/sign-in.do")
+				//.failureHandler(authFailureHandler)
 				.permitAll())
 			.logout((logout) -> logout
 				.logoutSuccessUrl("/")

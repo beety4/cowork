@@ -1,5 +1,5 @@
 package basic.domain.space.mapper;
 
-public class SpaceMapper {
+public interface SpaceMapper {
 
 }

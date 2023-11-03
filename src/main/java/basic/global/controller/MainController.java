@@ -9,18 +9,19 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
-	@GetMapping("/")
-	//public String index(@AuthenticationPrincipal PrincipalDetails pd, HttpSession s) {
-	public String index() {
-//		if(pd == null) {
-//			s.setAttribute("sID", null);
-//		} else {
-//			s.setAttribute("sID", pd.getName());
-//		}
-		//s.setAttribute("sID", null);
-		return "index";
+	@GetMapping("/mainPage")
+	public String mainPage() {
+		return "mainPage";
 	}
 	
+	@GetMapping("/")
+	public String intro(@AuthenticationPrincipal PrincipalDetails details) {
+		if(details == null) {
+			return "intro";
+		} else {
+			return "redirect:/mainPage";
+		}
+	}
 
 	@GetMapping("/404")
 	public String err() {
@@ -28,57 +29,52 @@ public class MainController {
 	}
 	
 	
+	@GetMapping("custom")
+	public String custom() {
+		return "custom";
+	}
+	
+	
+	
+	
+	
+	
 	@GetMapping("/blank")
 	public String blank(@AuthenticationPrincipal PrincipalDetails details) {
 		System.out.println(details.getName());
-		return "blank";
+		return "reference/blank";
 	}
-	
-	
-	
 	@GetMapping("/buttons")
 	public String buttons(HttpSession s) {
 		System.out.println(s.getAttribute("sID"));
-		return "buttons";
+		return "reference/buttons";
 	}
 	@GetMapping("/cards")
 	public String cards() {
-		return "cards";
+		return "reference/cards";
 	}
 	@GetMapping("/charts")
 	public String charts() {
-		return "charts";
-	}
-	@GetMapping("/forgot-password")
-	public String forgot() {
-		return "forgot-password";
-	}
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
-	@GetMapping("/register")
-	public String register() {
-		return "register";
+		return "reference/charts";
 	}
 	@GetMapping("/tables")
 	public String tables() {
-		return "tables";
+		return "reference/tables";
 	}
 	@GetMapping("/utilities-animation")
 	public String util1() {
-		return "utilities-animation";
+		return "reference/utilities-animation";
 	}
 	@GetMapping("/utilities-border")
 	public String util2() {
-		return "utilities-border";
+		return "reference/utilities-border";
 	}
 	@GetMapping("/utilities-color")
 	public String util3() {
-		return "utilities-color";
+		return "reference/utilities-color";
 	}
 	@GetMapping("/utilities-other")
 	public String util4() {
-		return "utilities-other";
+		return "reference/utilities-other";
 	}
 }

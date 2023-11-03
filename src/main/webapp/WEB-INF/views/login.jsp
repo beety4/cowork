@@ -5,7 +5,6 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,11 +21,12 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+	<script type="text/javascript" src="/js/errorAction.js"></script>
 
 </head>
 
 <body class="bg-gradient-primary">
-
+	<div id="err" style="display:none;"><%=request.getParameter("err") %></div>
     <div class="container">
 
         <!-- Outer Row -->
@@ -72,10 +72,10 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="/sign/forgot-password.do">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="/sign/sign-up.do">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
