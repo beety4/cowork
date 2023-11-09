@@ -1,0 +1,59 @@
+[33mcommit ad3238c55fa6729de03c1990f10e92d77eb42134[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: beety4 <beety4@naver.com>
+Date:   Fri Nov 3 22:44:26 2023 +0900
+
+    oAuth2 Session end
+
+[33mcommit bdc7069ba1483b0c84cf801df1d0fb74f2d843a8[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: beety4 <beety4@naver.com>
+Date:   Thu Oct 26 23:11:54 2023 +0900
+
+    oauth2 - session
+
+[33mcommit e2cd4b2aa4c6cd78c61444dd8f35e0e352f0e7ae[m
+Author: beety4 <beety4@naver.com>
+Date:   Thu Oct 12 10:14:41 2023 +0900
+
+    oauth basic connect
+
+[33mcommit eb604420e8d2eff83057929bd85bb689973ee3e1[m
+Author: beety4 <beety4@naver.com>
+Date:   Sun Oct 1 17:03:27 2023 +0900
+
+    gitattribute
+
+[33mcommit 1d38634fac2ff2775c706a6f75211b2c139d65ac[m
+Author: beety4 <beety4@naver.com>
+Date:   Sun Sep 24 22:22:06 2023 +0900
+
+    Email auth end
+
+[33mcommit 7b3c0ba3cee43af5dd27fa3a398602391c8ca3ef[m
+Author: beety4 <beety4@naver.com>
+Date:   Sat Sep 23 02:12:51 2023 +0900
+
+    spring security role edit, email auth ing
+
+[33mcommit eccb29951b214f01073e41e3f832dc66c78c98af[m
+Author: beety4 <beety4@naver.com>
+Date:   Sun Sep 17 02:05:18 2023 +0900
+
+    spring security config ing...
+
+[33mcommit beaa739717a3817e81d375277a846d94ba01b7e8[m
+Author: beety4 <beety4@naver.com>
+Date:   Mon Sep 11 02:29:32 2023 +0900
+
+    Add Security
+
+[33mcommit 4ae220566d3e297ab26c344fdeb838225eb490b3[m
+Author: beety4 <beety4@naver.com>
+Date:   Wed Sep 6 10:22:47 2023 +0900
+
+    0906
+
+[33mcommit c5672c4e7300d75f49171d1bbda7332fd4419dfe[m
+Author: beety4 <beety4@naver.com>
+Date:   Fri Sep 1 12:33:20 2023 +0900
+
+    first commit

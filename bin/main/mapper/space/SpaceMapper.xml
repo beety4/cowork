@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="basic.domain.space.mapper.SpaceMapper">
+	<insert id="createSpace" parameterType="basic.domain.space.dto.SpaceDTO">
+		INSERT INTO space_table (spaceName, spaceImg, owner)
+		VALUES (#{spaceName}, #{spaceImg}, #{owner})	
+	</insert>
+	
+	<insert id="addSpaceMember" parameterType="basic.domain.space.dto.SpaceUserDTO">
+		INSERT space_user_table (spaceNo, name)
+		VALUES (#{spaceNo}, #{name})	
+	</insert>
+	
+	<select id="getSpaceByName" parameterType="String" resultType="basic.domain.space.dto.SpaceDTO">
+		SELECT space_table.* FROM space_table
+		INNER JOIN space_user_table ON space_table.spaceNo = space_user_table.spaceNo
+		WHERE space_user_table.name = #{name}
+	</select>
+	
+	<select id="isIncludeSpace" parameterType="basic.domain.space.dto.SpaceUserDTO" resultType="Integer">
+		SELECT spaceNo FROM space_user_table
+		WHERE name = #{name} and spaceNo = #{spaceNo}
+	</select>
+	
+	<select id="getLastSpaceNo" resultType="int">
+		SELECT MAX(spaceNo) FROM space_table
+	</select>
+	
+</mapper>

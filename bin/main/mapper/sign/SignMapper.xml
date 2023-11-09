@@ -7,4 +7,10 @@
 		INSERT INTO user_table (id,password,name,birth,gender,email)
 		VALUES (#{id}, #{password}, #{name}, #{birth}, #{gender}, #{email})
 	</insert>
+	<select id="getNameByID" parameterType="String" resultType="String">
+		SELECT name FROM user_table WHERE id = #{id}
+	</select>
+	<select id="getIDByName" parameterType="String" resultType="String">
+		SELECT id FROM user_table WHERE name = #{name}
+	</select>
 </mapper>

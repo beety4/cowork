@@ -1,19 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
 
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/chatRoom.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<style>
-/* Style for chat list and chat area */
-#chat-list, #chat-area {
-	height: 468px; /* You can adjust the height as needed */
-	border: 1px solid #ccc;
-	overflow-y: auto;
-	/* Enable scrollbar only when content exceeds the container height */
-}
-</style>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">

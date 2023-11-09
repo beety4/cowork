@@ -8,12 +8,7 @@ import basic.domain.security.config.PrincipalDetails;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class MainController {
-	@GetMapping("/mainPage")
-	public String mainPage() {
-		return "mainPage";
-	}
-	
+public class MainController {	
 	@GetMapping("/")
 	public String intro(@AuthenticationPrincipal PrincipalDetails details) {
 		if(details == null) {

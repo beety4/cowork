@@ -21,4 +21,12 @@ public class UserService {
 		userDTO.setPassword(secure);
 		userMapper.insertUserDTO(userDTO);
 	}
+	
+	public String getNameByID(String id) {
+		return userMapper.getNameByID(id);
+	}
+	
+	public String getIDByName(String name) {
+		return userMapper.getIDbyName(name);
+	}
 }

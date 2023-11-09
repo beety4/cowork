@@ -72,3 +72,13 @@ function registercheck() {
 
     document.register.submit();   
 }
+
+
+function createSpace() {
+	var spaceName = document.getElementById("spaceName");
+	if (spaceName == "") {
+		alert("이름을 입력해 주세요!");
+		return false;
+	}
+	document.createSpace.submit();
+}

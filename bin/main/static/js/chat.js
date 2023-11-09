@@ -1,5 +1,6 @@
 var ws;
 var userName = "";
+var chatContainer = document.getElementById("chat-area");
 
 window.addEventListener('DOMContentLoaded', function() {
 	userName = $("#name").text();
@@ -8,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 function wsOpen() {
 	//ws = new WebSocket("ws://" + location.host + "/ws/chat");
-	ws = new WebSocket("ws://localhost:8090/ws/chat");
+	ws = new WebSocket("ws://localhost:8080/ws/chat");
 	wsEvt();
 }
 
@@ -20,7 +21,9 @@ function wsEvt() {
 	ws.onmessage = function(data) {
 		var msg = data.data;
 		if (msg != null && msg.trim() != '') {
+			
 			$("#chating").append("<p>" + msg + "</p>");
+			chatContainer.scrollTop = chatContainer.scrollHeight;
 		}
 	}
 

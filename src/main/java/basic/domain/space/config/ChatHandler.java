@@ -30,6 +30,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		String msg = message.getPayload();
 		for(String key : sessionMap.keySet()) {
+			System.out.println(sessionMap.get(key).getPrincipal().getName() + " : " + " / " + message.getPayload());
 			WebSocketSession wss = sessionMap.get(key);
 			try {
 				wss.sendMessage(new TextMessage(msg));
