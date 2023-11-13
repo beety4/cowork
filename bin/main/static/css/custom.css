@@ -1,3 +1,4 @@
+/* sign-up CSS */
 .w80fl {
 	width : 80%;
 	float : left;
@@ -6,3 +7,21 @@
 .timeAttack {
 	color : red;
 }
+
+/* Create Space에서 pace Icon 사이즈 지정 - disabled */
+.CspaceBox {
+	width : 150px;
+	height : 150px;
+	border-radius : 70%;
+	overflow : hidden;
+}
+
+.CspaceImg {
+	width : 100%;
+	height : 100%;
+	object-fit : cover;
+}
+
+
+
+

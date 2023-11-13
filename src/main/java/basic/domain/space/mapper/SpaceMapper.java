@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import basic.domain.space.dto.RoomDTO;
+import basic.domain.room.dto.RoomDTO;
 import basic.domain.space.dto.SpaceDTO;
 import basic.domain.space.dto.SpaceUserDTO;
 
@@ -14,7 +14,9 @@ public interface SpaceMapper {
 	public void addSpaceMember(SpaceUserDTO spaceUserDTO);
 	public ArrayList<SpaceDTO> getSpaceByName(String name);
 	public Integer isIncludeSpace(SpaceUserDTO spaceUserDTO);
-	public ArrayList<RoomDTO> getRoomBoard(int spaceNo);
-	public ArrayList<RoomDTO> getRoomChat(int spaceNo);
-	public int getLastSpaceNo();
+	public ArrayList<RoomDTO> getRoom(int spaceNo);
+	public Integer getLastSpaceNo();
+	public void createSampleRoomData1(int spaceNo);
+	public void createSampleRoomData2(int spaceNo);
+	public SpaceDTO getSpace(int spaceNo);
 }

@@ -58,7 +58,7 @@ public class SecurityConfig {
 			
 			.oauth2Login((oauth) -> oauth
                 .loginPage("/sign/sign-in.do")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/mainPage.do", true)
                 .userInfoEndpoint((userInfo) -> userInfo
                 		.userService(service)));
 

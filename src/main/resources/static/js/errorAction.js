@@ -1,5 +1,6 @@
 window.addEventListener('DOMContentLoaded', function() {
-	err = document.getElementById("err").innerText;
+	//err = document.getElementById("err").innerText;
+	let err = "eef";
 	
 	if(err == "null") {
 		return;

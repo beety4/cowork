@@ -14,7 +14,7 @@ public class MainController {
 		if(details == null) {
 			return "intro";
 		} else {
-			return "redirect:/mainPage";
+			return "redirect:/mainPage.do";
 		}
 	}
 
@@ -29,7 +29,15 @@ public class MainController {
 		return "custom";
 	}
 	
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
 	
+	@GetMapping("/friendPage.do")
+	public String friend() {
+		return "friendPage";
+	}
 	
 	
 	

@@ -24,8 +24,22 @@
 		WHERE name = #{name} and spaceNo = #{spaceNo}
 	</select>
 	
-	<select id="getLastSpaceNo" resultType="int">
+	<select id="getLastSpaceNo" resultType="Integer">
 		SELECT MAX(spaceNo) FROM space_table
 	</select>
 	
+	<select id="getRoom" parameterType="int" resultType="basic.domain.room.dto.RoomDTO">
+		SELECT * FROM room_table WHERE spaceNo = #{spaceNo}
+	</select>
+	
+	<insert parameterType="int" id="createSampleRoomData1">
+		INSERT INTO room_table(spaceNo, roomName, roomType) VALUES(#{spaceNo}, '게시판', 'BOARD')
+	</insert>
+	<insert parameterType="int" id="createSampleRoomData2">
+		INSERT INTO room_table(spaceNo, roomName, roomType) VALUES(#{spaceNo}, '채팅방', 'CHAT')
+	</insert>
+	
+	<select id="getSpace" parameterType="int" resultType="basic.domain.space.dto.SpaceDTO">
+		SELECT * FROM space_table WHERE spaceNo = #{spaceNo}
+	</select>
 </mapper>

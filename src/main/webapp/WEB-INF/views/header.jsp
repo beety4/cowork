@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="minho">
+    <meta name="author" content="">
 
     <title>cowork</title>
 
@@ -23,7 +23,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet"> 
 	<script type="text/javascript" src="/js/errorAction.js"></script>
+	<script type="text/javascript" src="/js/customUtility.js"></script>
 </head>
 
 <body id="page-top">
@@ -33,7 +35,7 @@
 	
 	%>
 
-	<!-- <div id="err" style="display:none;"><%=request.getParameter("err") %></div> -->
+
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -41,7 +43,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/mainPage">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/mainPage.do">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                 </div>
@@ -53,8 +55,8 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                <a class="nav-link" href="/friendPage.do">
+                    <i class="fas fa-fw fa-users"></i>
                     <span>Friends</span></a>
             </li>
 
@@ -63,52 +65,37 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                ChatSpace
+                Your Space
             </div>
 
 			<%
-				if(spaceList != null) {
+				if(spaceList.size() != 0) {
 					for(int i=0; i<spaceList.size(); i++) {
 			%>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/selectSpace?<%=spaceList.get(i).getSpaceNo() %>" 
-                	data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span><%=spaceList.get(i).getSpaceName() %></span>
+                <a class="nav-link collapsed" href="/showSpace.do?spaceNo=<%=spaceList.get(i).getSpaceNo() %>">
+                    <img src="/space/<%=spaceList.get(i).getSpaceImg() %>" width="17px">
+                    <span>&nbsp;&nbsp;<%=spaceList.get(i).getSpaceName() %></span>
                 </a>
             </li>
             
             <%
 					}
+				} else {
+            %>
+            	 <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#">
+                    <i class="fas fa-fw fa-times"></i>
+                    <span><del>NO SPACES</del></span>
+                </a>
+            </li>
+            <%
 				}
             %>
             
-            
-            
-            
-            
-            
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -120,15 +107,15 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="/createSpace">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                <a class="nav-link" href="/createSpace.do">
+                    <i class="fas fa-fw fa-plus"></i>
                     <span>Create Space</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="/setting">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-fw fa-cog"></i>
                     <span>Setting</span></a>
             </li>
 

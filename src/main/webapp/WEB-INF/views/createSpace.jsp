@@ -3,6 +3,7 @@
 <%@ include file="header.jsp"%>
 
 
+	
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -13,24 +14,31 @@
 	<div class="row d-flex justify-content-center">
 	
 	
-		<form action="createSpace" method="post" name="createSpace" enctype="multipart/form-data">
+		<form action="/createSpace.do" method="post" name="createSpace" enctype="multipart/form-data">
 			<table class="table" style="text-align: center; border: 1px solid #dddddd;">
 				<thead>
 					<tr>
-						<th colspan="2" style="background-color: #eeeeee; text-align: center;">새 공간 만들기</th>
+						<th colspan="2" style="background-color: #eeeeee; text-align: center;">새 Space 만들기</th>
 					</tr>
 				<tbody>
 					<tr>
-						<td><input type="text" placeholder="Space 이름" name="spaceName"
-							id="spaceName" maxlength="100" style="width: 920px;"></td>
+						<td><center>
+							<img id="preview" src="/space/default.png" width="180px">
+						</center></td>
 					</tr>
 					<tr>
-						<td><a style="float: left;">Space 이미지 : &nbsp;</a> <input
-							type="file" name="file" id="file" style="float: left;"></td>
+						<td><input type="text" placeholder="Space 이름" name="spaceName"
+							id="spaceName" maxlength="100" style="width: 300px;"></td>
+					</tr>
+					<tr>
+						<td><a style="float: left;">Space 이미지 : &nbsp;</a>
+						<input type="file" name="file" id="file" style="float: left;" onchange="fileProcess(this);"></td>
+					</tr>
+					<tr>
+						<td><button onclick="createSpace();" class="btn btn-primary" style="width:400px;">생성</button></td>
 					</tr>
 				</tbody>
 			</table>
-			<button onclick="createSpace();" style="float: right;">생성</button>
 		</form>
 
 

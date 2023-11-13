@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="basic.domain.room.mapper.RoomMapper">
+	<select id="getRoomType" parameterType="int" resultType="String">
+		SELECT roomType FROM room_table WHERE roomNo = ${roomNo}
+	</select>
+	
+	<select id="getRoomBoardList" parameterType="int" resultType="basic.domain.room.dto.RoomBoardDTO">
+		SELECT * FROM room_board_table WHERE roomNo = ${roomNo}
+	</select>
+
+	<insert id="createBoard" parameterType="basic.domain.room.dto.RoomBoardDTO">
+		INSERT INTO room_board_table(roomNo, name, title, category, content)
+		VALUES(#{roomNo}, #{name}, #{title}, #{category}, #{content})
+	</insert>
+	
+	<insert id="createRoom" parameterType="basic.domain.room.dto.RoomDTO">
+		INSERT INTO room_table(roomNo, spaceNo, roomName, roomType)
+		VALUES(#{roomNo}, #{spaceNo}, #{roomName}, #{roomType})
+	</insert>
+</mapper>

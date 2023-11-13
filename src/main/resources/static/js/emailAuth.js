@@ -1,6 +1,7 @@
 var timeattack = 0;
 var keycheck = 0;
 
+// 이메일 전송 함수
 function sendKey(){
 	time();
 	$("#check").css("display","block");
@@ -21,6 +22,9 @@ function sendKey(){
 	});
 };
   
+// 인증 키 확인 -- 수정필요!!!
+// html 코드상에 display none으로 할 시 
+// 인증번호 그냥 털림 -> DB사용 or 다른방법 사용해야함~
 function checKey(){
     var num1 = $("#authKey").val();
     var num2 = $("#getAuthKey").text();
@@ -38,6 +42,7 @@ function checKey(){
     }
 }
 
+// 지정한 시간 타이머
 function time() {
 	var time = 180;	// 3분 -> 180초
 	var min = "";

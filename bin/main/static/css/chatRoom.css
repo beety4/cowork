@@ -1,12 +1,30 @@
 #chat-list {
-	height: 468px;
+	height: 420px;
 	border: 1px solid #ccc;
 	overflow-y : auto;
 }
 #chat-area {
-	height: 468px;
+	height: 420px;
 	border: 1px solid #ccc;
 	overflow-y : auto;
 	flex-direction: column-reverse;
 	display: flex;
+}
+
+#board-area {
+	height: 468px;
+	border: 1px solid #ccc;
+	overflow-y : auto;
+}
+
+.clickdo {
+	cursor : pointer;
+	pointer-events : auto;
+}
+.unclickdo {
+	pointer-events : none;
+}
+
+.wResize {
+	width : 830px;
 }

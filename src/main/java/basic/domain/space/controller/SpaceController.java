@@ -7,9 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import basic.domain.room.dto.RoomDTO;
 import basic.domain.security.config.PrincipalDetails;
-import basic.domain.sign.service.UserService;
 import basic.domain.space.dto.SpaceDTO;
 import basic.domain.space.dto.SpaceUserDTO;
 import basic.domain.space.service.SpaceService;
@@ -19,40 +20,60 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SpaceController {
 	private final SpaceService spaceService;
-	private final UserService userService;
 	
-	@GetMapping("/mainPage")
-	public String mainPage(@AuthenticationPrincipal PrincipalDetails details, Model m) {
-		ArrayList<SpaceDTO> spaceList = spaceService.getSpaceByName(details.getName());
-		
-		// spaceList 출력
+	public void sideBar(String name, Model m) {
+		ArrayList<SpaceDTO> spaceList = spaceService.getSpaceByName(name);
 		m.addAttribute("spaceList", spaceList);
+	}
+	
+	@GetMapping("/mainPage.do")
+	public String mainPage(@AuthenticationPrincipal PrincipalDetails details, Model m) {
+		// 왼쪽 space목록 반환
+		String name = details.getName();
+		sideBar(name, m);
 		return "mainPage";
 	}
 	
-	@GetMapping("/selectSpace")
+	@GetMapping("/showSpace.do")
 	public String selectSpace(@AuthenticationPrincipal PrincipalDetails details, Model m, int spaceNo) {
+		// 왼쪽 space목록 반환
+		String name = details.getName();
+		sideBar(name, m);
+		
 		// 현재 유저가 spaceNo에 접근할때, 해당 space에 존재하는지 확인
-		SpaceUserDTO spaceUserDTO = new SpaceUserDTO(spaceNo, details.getName());
-		if(spaceService.isIncludeSpace(spaceUserDTO)) {
+		SpaceUserDTO spaceUserDTO = new SpaceUserDTO(spaceNo, name);
+		if(spaceService.isIncludeSpace(spaceUserDTO) == false) {
 			return "mainPage";
 		}
 		
-		
-		// 선택 space 들의 room 반환 필요
-		m.addAttribute("","");	
-		return "spacePage";
+		// 선택한 space의 room목록 반환
+		ArrayList<RoomDTO> roomList = spaceService.getRoom(spaceNo);
+		SpaceDTO spaceDTO = spaceService.getSpace(spaceNo);
+		m.addAttribute("roomList", roomList);
+		m.addAttribute("spaceDTO", spaceDTO);
+		return "showSpace";
 	}
 	
-	@GetMapping("createSpace")
-	public String createSpace() {
+	@GetMapping("createSpace.do")
+	public String createSpace(@AuthenticationPrincipal PrincipalDetails details, Model m) {
+		// 왼쪽 space목록 반환
+		String name = details.getName();
+		sideBar(name, m);
 		return "createSpace";
 	}
-	@PostMapping("createSpace")
-	public String createSpace(@AuthenticationPrincipal PrincipalDetails details, Model m, SpaceDTO spaceDTO) {
-		spaceDTO.setOwner(details.getName());
-		spaceService.createSpace(spaceDTO);
-		return "redirect:/selectSpace?" + spaceDTO.getSpaceNo();
+	@PostMapping("createSpace.do")
+	public String createSpace(@AuthenticationPrincipal PrincipalDetails details, Model m, SpaceDTO spaceDTO, MultipartFile file) {
+		// 왼쪽 space목록 반환
+		String name = details.getName();
+		sideBar(name, m);
+		
+		// space 소유자 설정 후, 생성
+		spaceDTO.setOwner(name);
+		int spaceNo = spaceService.createSpace(spaceDTO, file);
+		
+		return "redirect:/showSpace.do?spaceNo=" + spaceNo;
 	}
+	
+	
 	
 }

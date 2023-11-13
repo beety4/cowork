@@ -1,4 +1,4 @@
-package basic.domain.space.dto;
+package basic.domain.room.dto;
 
 import lombok.Data;
 
