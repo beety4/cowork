@@ -17,6 +17,8 @@
 <div class="container-fluid">
 	<script type="text/javascript" src="/js/chat.js"></script>
 	<script type="text/javascript" src="/js/roomProcess.js"></script>
+	<script type="text/javascript" src="/js/LikeProcess.js"></script>
+	
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800"><%=spaceDTO.getSpaceName() %></h1>
@@ -83,31 +85,13 @@
 					<div id="chating" class="chating"></div>
 				</div>
 			</div>
-			
-			
-			<!-- Chat Area -->
-			<div id="chatRoom" class="card wResize" style="display : none;">
-				<div id="roomName" class="card-header">Chat Room 1</div>
-				<div id="chat-area" class="card-body">
-					<div id="place" class="chating"></div>
-				</div>
-				<div id="yourMsg">
-					<table class="inputTable">
-					<tr>
-						<th>msg : </th>
-						<th><input id="chatting" placeholder="text"></th>
-						<th><button onclick="send()" id="sendBtn">send</button></th>
-					</tr>
-					</table>
-				</div>
-			</div>
 
 			
 			<!-- Chat Area -->
 			<div id="createBoard" class="card wResize" style="display:none;">
 				<div class="card-header">게시판 등록</div>
 				<div id="board-area" class="card-body">
-					<div id="place" class="workArea">
+					<div id="chating" class="chating">
 							<form action="/createBoard.do" method="post">
 								<div class="form-group">
 									<label for="title">제목</label> <input type="text"
@@ -145,7 +129,7 @@
 			<div id="createRoom" class="card wResize" style="display: none;">
 				<div id="roomName" class="card-header">Chat Room 1</div>
 				<div id="chat-area" class="card-body">
-					<div id="place" class="workArea">
+					<div id="chating" class="chating">
 						<form action="/createRoom.do" method="post">
 							<div class="form-group">
 								<label for="title">Room 이름</label> <input type="text"
@@ -158,7 +142,7 @@
 									value="<%=spaceDTO.getSpaceNo()%>">
 							</div>
 								<div class="form-group">
-									<label for="category">카테고리</label> <select class="form-control"
+									<label for="category">Room 타입</label> <select class="form-control"
 										id="roomType" name="roomType">
 										<option>BOARD</option>
 										<option>CHAT</option>

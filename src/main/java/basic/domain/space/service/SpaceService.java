@@ -10,8 +10,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import basic.domain.room.dto.RoomDTO;
-import basic.domain.space.dto.SpaceDTO;
 import basic.domain.space.dto.SpaceUserDTO;
+import basic.domain.space.dto.SpaceDTO;
 import basic.domain.space.mapper.SpaceMapper;
 import lombok.RequiredArgsConstructor;
 

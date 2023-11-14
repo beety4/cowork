@@ -9,12 +9,10 @@ function showRoom(roomli, roomNo){
 	var myArr = [];
 	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
 	document.getElementById("defaultRoom").style.display = 'block';
-	document.getElementById("chatRoom").style.diaplay = 'none';
 	document.getElementById("createBoard").style.display = 'none';
 	document.getElementById("createRoom").style.display = 'none';
 	
 	document.getElementById("chating").innerHTML = '';
-	document.getElementById("place").innerHTML = '';
 	unclickdo(roomli);
 	
     $.ajax({
@@ -71,7 +69,7 @@ function addRoom() {
 function writeBoardPage(myArr) {
 	for(i = 0; i<myArr.length; i++) {
 		var content = `
-		<div class="container mt-5">
+		<div class="container mt-5" id="${myArr[i][0]}">
     	<div class="card" style="width:600px;">
         	<div class="card-header">
             	작성자: ${myArr[i][2]}
@@ -84,6 +82,9 @@ function writeBoardPage(myArr) {
             	<p class="card-text">
                 	${myArr[i][6]}
             	</p>
+        	</div>
+        	<div class="card-footer">
+        		<img src="/img/good.png" width="20px;" onclick="like(this, ${myArr[i][0]} , 0);"><div id="howmuch"></div>
         	</div>
     	</div>
 		</div>

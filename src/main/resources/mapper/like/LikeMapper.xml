@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="basic.domain.like.mapper.LikeMapper">
+	<insert id="addLike" parameterType="basic.domain.like.dto.LikeDTO">
+		INSERT INTO room_board_likeC_table(boardNo, name, likeType)
+		VALUES(#{boardNo}, #{name}, #{likeType})
+	</insert>
+	
+	<select id="isChecked" parameterType="basic.domain.like.dto.LikeDTO" resultType="Integer">
+		SELECT * FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
+	</select>
+
+	<select id="getLike" parameterType="int" resultType="int">
+		SELECT likeType, COUNT(*) FROM room_board_likeC_table WHERE boardNo = #{boardNo}
+		GROUP BY likeType
+	</select>
+
+	<delete id="deleteLike" parameterType="basic.domain.like.dto.LikeDTO">
+		DELETE FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
+	</delete>
+
+</mapper>

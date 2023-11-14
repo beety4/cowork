@@ -19,4 +19,6 @@ public class RoomBoardDTO {
 	private String category;
 	private String content;
 	private int available;
+	
+	
 }
