@@ -10,6 +10,23 @@
 	<select id="getRoomBoardList" parameterType="int" resultType="basic.domain.room.dto.RoomBoardDTO">
 		SELECT * FROM room_board_table WHERE roomNo = ${roomNo}
 	</select>
+	
+	<select id="getRoomBoardListWithLike" parameterType="int" resultType="basic.domain.room.dto.RoomBoardDTO">
+		SELECT * FROM room_board_table WHERE roomNo = ${roomNo}
+		
+		SELECT likeType, COUNT(*) AS cnt FROM room_board_likeC_table WHERE boardNo = #{boardNo}
+		GROUP BY likeType
+		
+		
+		SELECT room_board_table.*, room_board_likeC_table.likeType, room_board_likeC_table.COUNT(*) AS cnt FROM room_board_table 
+		INNER JOIN room_board_likeC_table ON room_board_table.boardNo = room_board_likeC_table.boardNo
+		WHERE room_board_table.roomNo = ${roomNO} GROUP BY room_board_likeC_table.likeType
+		
+		
+		SELECT space_table.* FROM space_table
+		INNER JOIN space_user_table ON space_table.spaceNo = space_user_table.spaceNo
+		WHERE space_user_table.name = #{name}
+	</select>
 
 	<insert id="createBoard" parameterType="basic.domain.room.dto.RoomBoardDTO">
 		INSERT INTO room_board_table(roomNo, name, title, category, content)

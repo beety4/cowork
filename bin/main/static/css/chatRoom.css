@@ -1,10 +1,12 @@
 #chat-list {
-	height: 420px;
+	/*height: 420px;*/
+	height: 600px;
 	border: 1px solid #ccc;
 	overflow-y : auto;
 }
 #chat-area {
-	height: 420px;
+	/*height: 420px;*/
+	height: 600px;
 	border: 1px solid #ccc;
 	overflow-y : auto;
 	flex-direction: column-reverse;
@@ -27,4 +29,9 @@
 
 .wResize {
 	width : 830px;
+}
+
+.selectUp {
+	color : red;
+	/* border : 5px solid red; */
 }

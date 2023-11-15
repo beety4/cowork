@@ -7,6 +7,7 @@ window.addEventListener('DOMContentLoaded', function() {
 // 비동기 통신을 위한 함수
 function showRoom(roomli, roomNo){
 	var myArr = [];
+	var lType = [];
 	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
 	document.getElementById("defaultRoom").style.display = 'block';
 	document.getElementById("createBoard").style.display = 'none';
@@ -23,10 +24,12 @@ function showRoom(roomli, roomNo){
         success: function(data){
 			$(data).each(function() {
 				var roomBoardDTO = [this.boardNo, this.roomNo, this.name, this.title, this.date, this.category, this.content];
+				//var likeTypeDTO = [this.likeTypeDTO.likeType, this.likeType.DTO.cnt];
 				myArr.push(roomBoardDTO);
+				//lType.push(likeTypeDTO);
 			});
 			addButton(roomNo);
-			writeBoardPage(myArr);
+			writeBoardPage(myArr, lType);
         },
         error: function(request, status, error) {
 			alert("오류가 발생했습니다.");
@@ -66,10 +69,12 @@ function addRoom() {
 }
 
 // 비동기 통신 성공 후 board 처리
-function writeBoardPage(myArr) {
+function writeBoardPage(myArr, lType) {
 	for(i = 0; i<myArr.length; i++) {
+		boardNo = myArr[i][0];
+		likeType = lType[i];
 		var content = `
-		<div class="container mt-5" id="${myArr[i][0]}">
+		<div class="container mt-5" id="${boardNo}">
     	<div class="card" style="width:600px;">
         	<div class="card-header">
             	작성자: ${myArr[i][2]}
@@ -84,7 +89,20 @@ function writeBoardPage(myArr) {
             	</p>
         	</div>
         	<div class="card-footer">
-        		<img src="/img/good.png" width="20px;" onclick="like(this, ${myArr[i][0]} , 0);"><div id="howmuch"></div>
+        		<img id="${boardNo}-img-0" src="/img/0.png" width="20px;" onclick="like(this, ${boardNo} , 0);">
+        		<div id="${boardNo}-0" style="display: inline;">0</div>
+        		<img id="${boardNo}-img-1" src="/img/1.png" width="20px;" onclick="like(this, ${boardNo} , 1);">
+        		<div id="${boardNo}-1" style="display: inline;">0</div>
+        		<img id="${boardNo}-img-2" src="/img/2.png" width="20px;" onclick="like(this, ${boardNo} , 2);">
+        		<div id="${boardNo}-2" style="display: inline;">0</div>
+        		<img id="${boardNo}-img-3" src="/img/3.png" width="20px;" onclick="like(this, ${boardNo} , 3);">
+        		<div id="${boardNo}-3" style="display: inline;">0</div>
+        		<img id="${boardNo}-img-4" src="/img/4.png" width="20px;" onclick="like(this, ${boardNo} , 4);">
+        		<div id="${boardNo}-4" style="display: inline;">0</div>
+        		<img id="${boardNo}-img-5" src="/img/5.png" width="20px;" onclick="like(this, ${boardNo} , 5);">
+        		<div id="${boardNo}-5" style="display: inline;">0</div>
+        		
+        		<button onclick="comment();" style="float:right;">댓글</button>
         	</div>
     	</div>
 		</div>

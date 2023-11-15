@@ -9,11 +9,11 @@
 	</insert>
 	
 	<select id="isChecked" parameterType="basic.domain.like.dto.LikeDTO" resultType="Integer">
-		SELECT * FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
+		SELECT likeType FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
 	</select>
 
-	<select id="getLike" parameterType="int" resultType="int">
-		SELECT likeType, COUNT(*) FROM room_board_likeC_table WHERE boardNo = #{boardNo}
+	<select id="getLike" parameterType="int" resultType="basic.domain.like.dto.LikeTypeDTO">
+		SELECT likeType, COUNT(*) AS cnt FROM room_board_likeC_table WHERE boardNo = #{boardNo}
 		GROUP BY likeType
 	</select>
 

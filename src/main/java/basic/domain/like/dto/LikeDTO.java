@@ -7,5 +7,5 @@ public class LikeDTO {
 	private int likeNo;
 	private int boardNo;
 	private String name;
-	private LikeTypeDTO likeTypeDTO;
+	private int likeType;
 }

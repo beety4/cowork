@@ -1,5 +1,7 @@
 package basic.domain.room.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,9 @@ public class RoomController {
 	
 	@ResponseBody
 	@PostMapping("/showRoom.do")
-	public Object showRoom(String value) {
+	public ArrayList<RoomBoardDTO> showRoom(String value) {
 		int roomNo = Integer.parseInt(value);
-		return roomService.getRoomBoard(roomNo);
+		return roomService.getRoomBoardList(roomNo);
 	}
 	
 	@PostMapping("/createBoard.do")

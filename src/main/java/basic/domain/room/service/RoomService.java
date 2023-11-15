@@ -1,5 +1,7 @@
 package basic.domain.room.service;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +20,13 @@ public class RoomService {
 		return roomMapper.getRoomType(roomNo);
 	}
 	
-	public Object getRoomBoard(int roomNo) {
+	public ArrayList<RoomBoardDTO> getRoomBoardList(int roomNo) {
 		if(getRoomType(roomNo).equals("BOARD")) {
+			
 			return roomMapper.getRoomBoardList(roomNo);
 		} else {
+			
+			
 			return null;
 		}
 	}
