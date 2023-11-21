@@ -1,4 +1,4 @@
-package basic.domain.space.config;
+package basic.domain.chat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;

@@ -17,6 +17,7 @@
 <div class="container-fluid">
 	<script type="text/javascript" src="/js/chat.js"></script>
 	<script type="text/javascript" src="/js/roomProcess.js"></script>
+	<script type="text/javascript" src="/js/chatProcess.js"></script>
 	<script type="text/javascript" src="/js/LikeProcess.js"></script>
 	
 	<!-- Page Heading -->
@@ -30,7 +31,7 @@
 			<!-- Chat Room List -->
 			<div class="card">
 				<div class="card-header">Rooms
-				<button onclick="addRoom()" style="float:right;">+</button>
+				<button onclick="addRoom();" style="float:right;">+</button>
 				</div>
 				<div id="chat-list" class="card-body">
 					<!-- List of chat rooms goes here -->
@@ -56,7 +57,7 @@
 								for(int i=0; i<roomList.size(); i++) {
 									if(roomList.get(i).getRoomType().equals("CHAT")) {
 										%>
-											<li onclick="showRoom(this,<%=roomList.get(i).getRoomNo() %>)">
+											<li onclick="showChatRoom(this,<%=roomList.get(i).getRoomNo() %>)">
 											<%=roomList.get(i).getRoomName() %>
 											</li>
 										<%
