@@ -15,7 +15,7 @@
 %>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-	<script type="text/javascript" src="/js/chat.js"></script>
+	<!-- <script type="text/javascript" src="/js/chat.js"></script> -->
 	<script type="text/javascript" src="/js/roomProcess.js"></script>
 	<script type="text/javascript" src="/js/chatProcess.js"></script>
 	<script type="text/javascript" src="/js/LikeProcess.js"></script>
@@ -35,14 +35,14 @@
 				</div>
 				<div id="chat-list" class="card-body">
 					<!-- List of chat rooms goes here -->
-					<ul>
+					<ul class="list-group">
 						<%
 							if(roomList.size() != 0) {
 								// 게시판 Room 목록 출력
 								for(int i=0; i<roomList.size(); i++) {
 									if(roomList.get(i).getRoomType().equals("BOARD")) {
 										%>
-											<li onclick="showRoom(this,<%=roomList.get(i).getRoomNo() %>)">
+											<li class="list-group-item" onclick="showRoom(this,<%=roomList.get(i).getRoomNo() %>)">
 											<%=roomList.get(i).getRoomName() %>
 											</li>
 										<%
@@ -51,13 +51,13 @@
 							%>
 					</ul>
 					<hr>
-					<ul>
+					<ul class="list-group">
 						<%
 								// 채팅방 Room 목록 출력
 								for(int i=0; i<roomList.size(); i++) {
 									if(roomList.get(i).getRoomType().equals("CHAT")) {
 										%>
-											<li onclick="showChatRoom(this,<%=roomList.get(i).getRoomNo() %>)">
+											<li class="list-group-item" onclick="showChatRoom(this,<%=roomList.get(i).getRoomNo() %>)">
 											<%=roomList.get(i).getRoomName() %>
 											</li>
 										<%
@@ -84,6 +84,10 @@
 				<div id="roomName" class="card-header">Chat Room 1</div>
 				<div id="chat-area" class="card-body">
 					<div id="chating" class="chating"></div>
+				</div>
+				<div id="input-data">
+					<input type="text" id="message" name="message">
+					<input type="button" id="sendMSG" name="sendMSG" onclick="sendMSG" value="전송">
 				</div>
 			</div>
 
@@ -129,7 +133,7 @@
 			<!-- Chat Area -->
 			<div id="createRoom" class="card wResize" style="display: none;">
 				<div id="roomName" class="card-header">Chat Room 1</div>
-				<div id="chat-area" class="card-body">
+				<div id="create-room" class="card-body">
 					<div id="chating" class="chating">
 						<form action="/createRoom.do" method="post">
 							<div class="form-group">

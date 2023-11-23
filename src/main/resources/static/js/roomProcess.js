@@ -8,13 +8,15 @@ window.addEventListener('DOMContentLoaded', function() {
 function showRoom(roomli, roomNo){
 	var myArr = [];
 	var lType = [];
-	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
-	document.getElementById("defaultRoom").style.display = 'block';
-	document.getElementById("createBoard").style.display = 'none';
-	document.getElementById("createRoom").style.display = 'none';
 	
-	document.getElementById("chating").innerHTML = '';
+	// 게시판 생성, 방 생성 가리기, 이름 설정
+	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
+	showDisplayRoom("defaultRoom");
 	unclickdo(roomli);
+	
+	if(ws.readyState === 1) {
+		ws.close();
+	}
 	
     $.ajax({
     	url:"/showRoom.do",
@@ -41,6 +43,31 @@ function showRoom(roomli, roomNo){
 };
 
 
+// 보여질 CSS 공간 설정
+function showDisplayRoom(ele) {
+	// 채팅공간 초기화
+	document.getElementById("chating").innerHTML = '';
+	
+	var defaultRoom = document.getElementById("defaultRoom");
+	var createBoard = document.getElementById("createBoard");
+	var createRoom = document.getElementById("createRoom");
+	
+	defaultRoom.style.display = 'none';
+	createBoard.style.display = 'none';
+	createRoom.style.display = 'none';
+	
+	if(ele == "defaultRoom") {
+		defaultRoom.style.display = 'block';
+	} else if(ele == "createBoard") {
+		createBoard.style.display = 'block';
+	} else {
+		createRoom.style.display = 'block';
+	}
+}
+
+
+
+
 // 게시판 room 클릭 시 게시판 추가 버튼 띄우기
 function addButton(roomNo) {
 	var add = document.createElement("button");
@@ -54,18 +81,13 @@ function addButton(roomNo) {
 
 // 게시판 추가 폼 띄우기
 function addBoard(roomNo) {
-	document.getElementById("defaultRoom").style.display = 'none';
-	document.getElementById("createBoard").style.display = 'block';
+	showDisplayRoom("createBoard");
 	document.getElementById("roomNo").value = roomNo;
-	clickdo();
 }
 
 // Room 추가 폼 띄우기
 function addRoom() {
-	document.getElementById("defaultRoom").style.display = 'none';
-	document.getElementById("createBoard").style.display = 'none';
-	document.getElementById("createRoom").style.display = 'block';
-	clickdo();
+	showDisplayRoom("createRoom");
 }
 
 // 비동기 통신 성공 후 board 처리
@@ -112,21 +134,16 @@ function writeBoardPage(myArr, lType) {
 	}
 }
 
-// 비동기 통신 성공 후 chat 처리
-function writeChatPage(myArr) {
-	
-	
-	
-}
-
 
 // 리스트 한번만 클릭!
 function clickdo() {
-	for(var i=1; i<10; i++) {
+	for(var i=1; i<30; i++) {
 		for(var j=1; j<10; j++) {
 			try {
 				var ele = getElementByXpath("//*[@id='chat-list']/ul["+i+"]/li["+j+"]");
-				ele.className = 'clickdo';
+				ele.classList.add('clickdo');
+				ele.classList.remove('unclickdo');
+				ele.classList.remove('active');
 			}catch(e) {
 				break;
 			}
@@ -135,7 +152,8 @@ function clickdo() {
 }
 function unclickdo(roomli) {
 	clickdo();
-	roomli.className = 'unclickdo';
+	roomli.classList.add('active');
+	roomli.classList.add('unclickdo');
 }
 function getElementByXpath(path) {
   return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;

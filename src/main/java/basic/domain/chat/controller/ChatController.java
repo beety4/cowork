@@ -1,14 +1,13 @@
 package basic.domain.chat.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import basic.domain.chat.dto.ChatRoom;
+import basic.domain.chat.dto.ChatDTO;
 import basic.domain.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
 
@@ -18,20 +17,19 @@ import lombok.RequiredArgsConstructor;
 public class ChatController {
 	private final ChatService chatService;
 	
-	// https://rhgustmfrh.tistory.com/15
-	
-	@PostMapping("/createChatRoom")
+	// 메세지 DB 저장하는 비동기식 처리
+	@PostMapping("/saveChat.do")
 	@ResponseBody
-	public ChatRoom createChatRoom(String roomName) {
-		return chatService.createRoom(roomName);
-	}
-	
-	@GetMapping("/showChatRoom")
-	@ResponseBody
-	public List<ChatRoom> findAllRoom() {
-		return chatService.findAllRoom();
+	public int saveChat(ChatDTO chatDTO) {
+		chatService.saveChat(chatDTO);
+		return 1;
 	}
 
-	
+	//목록
+	@PostMapping("/showChat.do")
+	@ResponseBody
+	public ArrayList<ChatDTO> showChat(int roomNo) {
+		return chatService.getChatList(roomNo);
+	}
 	
 }

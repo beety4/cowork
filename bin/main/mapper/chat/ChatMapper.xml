@@ -7,6 +7,12 @@
 		SELECT roomNO FROM room_table
 	</select>
 
-
+	<select id="getChatList" resultType="basic.domain.chat.dto.ChatDTO" parameterType="int">
+		SELECT * FROM room_chat_table WHERE roomNo = #{roomNo}
+	</select>
+	
+	<insert id="saveChat" parameterType="basic.domain.chat.dto.ChatDTO">
+		INSERT INTO room_chat_table(roomNo, name, message, messageType) VALUES(#{roomNo}, #{name}, #{message}, #{messageType})
+	</insert>
 
 </mapper>

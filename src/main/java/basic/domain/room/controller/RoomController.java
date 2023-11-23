@@ -12,13 +12,11 @@ import basic.domain.room.dto.RoomBoardDTO;
 import basic.domain.room.dto.RoomDTO;
 import basic.domain.room.service.RoomService;
 import basic.domain.security.config.PrincipalDetails;
-import basic.domain.space.service.SpaceService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class RoomController {
-	private final SpaceService spaceService;
 	private final RoomService roomService;
 	
 	@ResponseBody
