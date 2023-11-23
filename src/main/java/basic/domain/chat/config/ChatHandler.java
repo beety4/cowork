@@ -27,9 +27,7 @@ public class ChatHandler extends TextWebSocketHandler {
     // 소켓 연결
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("연결됨 : " + session.getId());
-        String a = session.getPrincipal().getName();
-        System.out.println(a);
+        System.out.println("연결됨 : " + session.getPrincipal().getName() + " // " + session.getId());
         sessions.add(session);
     }
 
@@ -59,11 +57,10 @@ public class ChatHandler extends TextWebSocketHandler {
     // 소켓 종료 확인
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        System.out.println("!!!연결끊김 : " + session.getId());
-        if(chatRoomSessionMap.get(session) != null) {
-        	removeClosedSession(sessions);
-        	sessions.remove(session);
-        }
+    	System.out.println("!!!연결끊김 : " + session.getPrincipal().getName() + " // " + session.getId());
+        removeClosedSession(sessions);
+        sessions.remove(session);
+
     }
     
 
@@ -82,7 +79,8 @@ public class ChatHandler extends TextWebSocketHandler {
         try{
             session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+        	System.out.println(e.getMessage());
         }
     }
 	

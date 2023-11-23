@@ -3,11 +3,16 @@ var ws;
 var userName = "";
 var chatContainer = document.getElementById("chat-area");
 var nowRoomNo = 0;
-ws = new WebSocket("ws://localhost:8080/ws/chat");
+
 
 // userName 설정
 window.addEventListener('DOMContentLoaded', function() {
 	userName = $("#name").text();
+});
+
+$(document).ready(function() {
+	var chatContain = document.getElementById("chat-area");
+	chatContain.scrollTop = chatContain.scrollHeight;
 });
 
 
@@ -15,7 +20,10 @@ window.addEventListener('DOMContentLoaded', function() {
 function showChatRoom(roomli, roomNo){
 	nowRoomNo = roomNo;
 	var myArr = [];
-	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
+	
+	document.getElementById("input-data").style.display = 'block';
+	
+	document.getElementById("mainroomName").innerHTML =  roomli.innerHTML;
 	showDisplayRoom("defaultRoom");
 	
 	// 화면 초기화 및 ul 선택
@@ -49,14 +57,25 @@ function showChatRoom(roomli, roomNo){
 
 
 function writeChatPage(myArr) {
+	var preDate = new Date(myArr[i][4]);
+	preDate.setHours(0, 0, 0, 0);
 	for(i = 0; i<myArr.length; i++) {
-		var contentMe = `<div class='chatmsg sent'>${myArr[i][4].split(" ")[1].trim() }&nbsp;<div>${myArr[i][3]}</div></div>`;
-		var content = `<div class='chatmsg received'>${myArr[i][2] }<br><div>${myArr[i][3]}</div>&nbsp;${myArr[i][4].split(" ")[1].trim() }</div>`;
+		var sentContent = `<div class='chatmsg sent'>${myArr[i][4].split(" ")[1].trim() }&nbsp;<div>${myArr[i][3]}</div></div>`;
+		var receiveContent = `<div class='chatmsg received'>${myArr[i][2] }<br><div>${myArr[i][3]}</div>&nbsp;${myArr[i][4].split(" ")[1].trim() }</div>`;
+		
+		var dbDate = new Date(myArr[i][4]);
+		dbDate.setHours(0, 0, 0, 0);
+		if(preDate < dbDate) {
+			$("#chating").append("<hr><div style='text-align:center;'><strong>" + myArr[i][4].split(" ")[0] + "</strong></div>");
+			preDate = new Date(myArr[i][4]);
+			preDate.setHours(0, 0, 0, 0);
+		}
+		
 		
 		if(myArr[i][2] == userName) {
-			$("#chating").append(contentMe);
+			$("#chating").append(sentContent);
 		} else {
-			$("#chating").append(content);
+			$("#chating").append(receiveContent);
 		}
 		
 	}	
@@ -107,9 +126,10 @@ function wsEvt() {
 
 	ws.onmessage = function(data) {
 		var getData = data.data;
-		console.log(getData);
+		//console.log(getData);
 		var jsonObject = JSON.parse(getData);
 		var msg = jsonObject.message;
+		
 		
 		
 		if (msg != null && msg.trim() != '') {
@@ -120,7 +140,6 @@ function wsEvt() {
 			} else {
 				$("#chating").append("<div class='chatmsg received'>" + jsonObject.name + "<br><div>" + onlyMSG + "</div>&nbsp;" + now().split(" ")[1].trim() + "</div>");
 			}
-			chatContainer.scrollTop = chatContainer.scrollHeight;
 		}
 	}
 	
@@ -132,10 +151,11 @@ function wsEvt() {
 	document.addEventListener("keypress", function(e) {
 		if (e.keyCode == 13) { // ENTER KEY
 			var msg = document.getElementById("message").value;
-			if(msg.trim() == '' && msg == null) {
+			if(msg.trim() == '' || msg == null) {
 				return;
+			} else {
+				send();
 			}
-			send();
 		}
 	});
 }
@@ -178,6 +198,12 @@ function makeData() {
 	return testda;
 }
 
+
+
+function testaa() {
+	
+	console.log();
+}
 
 
 

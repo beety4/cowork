@@ -9,14 +9,17 @@ function showRoom(roomli, roomNo){
 	var myArr = [];
 	var lType = [];
 	
+	document.getElementById("input-data").style.display = 'none';
+	
 	// 게시판 생성, 방 생성 가리기, 이름 설정
-	document.getElementById("roomName").innerHTML =  roomli.innerHTML;
+	document.getElementById("mainroomName").innerHTML =  roomli.innerHTML;
 	showDisplayRoom("defaultRoom");
 	unclickdo(roomli);
 	
-	if(ws.readyState === 1) {
+	if(ws!=null &&  ws.readyState == 1) {
 		ws.close();
 	}
+
 	
     $.ajax({
     	url:"/showRoom.do",
@@ -75,7 +78,7 @@ function addButton(roomNo) {
 	add.id = "boardAdd";
 	add.style = "float:right;";
 	add.innerText = "+";
-	document.getElementById("roomName").appendChild(add);
+	document.getElementById("mainroomName").appendChild(add);
 }
 
 
@@ -83,11 +86,14 @@ function addButton(roomNo) {
 function addBoard(roomNo) {
 	showDisplayRoom("createBoard");
 	document.getElementById("roomNo").value = roomNo;
+	document.getElementById("title").value = '';
+	document.getElementById("content").value = '';
 }
 
 // Room 추가 폼 띄우기
 function addRoom() {
 	showDisplayRoom("createRoom");
+	document.getElementById("roomName").value = '';
 }
 
 // 비동기 통신 성공 후 board 처리

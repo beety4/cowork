@@ -9,17 +9,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
+<script type="text/javascript" src="/js/roomProcess.js"></script>
+<script type="text/javascript" src="/js/chatProcess.js"></script>
+<script type="text/javascript" src="/js/LikeProcess.js"></script>
+
+
+
 <%
 	ArrayList<RoomDTO> roomList = (ArrayList<RoomDTO>)request.getAttribute("roomList");
 	SpaceDTO spaceDTO = (SpaceDTO)request.getAttribute("spaceDTO");
 %>
 <!-- Begin Page Content -->
 <div class="container-fluid">
-	<!-- <script type="text/javascript" src="/js/chat.js"></script> -->
-	<script type="text/javascript" src="/js/roomProcess.js"></script>
-	<script type="text/javascript" src="/js/chatProcess.js"></script>
-	<script type="text/javascript" src="/js/LikeProcess.js"></script>
-	
 	<!-- Page Heading -->
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800"><%=spaceDTO.getSpaceName() %></h1>
@@ -81,13 +83,13 @@
 		<div class="col-md-9">
 			<!-- Chat Area -->
 			<div id="defaultRoom" class="card wResize">
-				<div id="roomName" class="card-header">Chat Room 1</div>
+				<div id="mainroomName" class="card-header">Chat Room 1</div>
 				<div id="chat-area" class="card-body">
 					<div id="chating" class="chating"></div>
 				</div>
-				<div id="input-data">
-					<input type="text" id="message" name="message">
-					<input type="button" id="sendMSG" name="sendMSG" onclick="sendMSG" value="전송">
+				<div id="input-data" class="card-footer" style="display: none;">
+					<input type="text" id="message" name="message" style="width: 85%;">
+					<input type="button" id="sendMSG" name="sendMSG" style="width: 10%;" onclick="send();" value="전송">
 				</div>
 			</div>
 
@@ -132,7 +134,7 @@
 				
 			<!-- Chat Area -->
 			<div id="createRoom" class="card wResize" style="display: none;">
-				<div id="roomName" class="card-header">Chat Room 1</div>
+				<div id="mainroomName" class="card-header">Chat Room 1</div>
 				<div id="create-room" class="card-body">
 					<div id="chating" class="chating">
 						<form action="/createRoom.do" method="post">
