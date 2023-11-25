@@ -1,6 +1,8 @@
+<%@page import="ch.qos.logback.core.recovery.ResilientSyslogOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp"%>
+<%@ page import="basic.domain.space.dto.SpaceDTO" %>
 <%@ page import="basic.domain.room.dto.RoomDTO" %>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,8 +14,9 @@
 
 <script type="text/javascript" src="/js/roomProcess.js"></script>
 <script type="text/javascript" src="/js/chatProcess.js"></script>
-<script type="text/javascript" src="/js/LikeProcess.js"></script>
-
+<script type="text/javascript" src="/js/likeProcess.js"></script>
+<script type="text/javascript" src="/js/spaceProcess.js"></script>
+<script type="text/javascript" src="/js/commentProcess.js"></script>
 
 
 <%
@@ -23,8 +26,18 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 	<!-- Page Heading -->
+	<div style="display: flex">
 	<div class="d-sm-flex align-items-center justify-content-between mb-4">
 		<h1 class="h3 mb-0 text-gray-800"><%=spaceDTO.getSpaceName() %></h1>
+		<%
+			if(name.equals(spaceDTO.getOwner())) {
+		%>
+		<div style="margin-left : 20px;">
+			<input type="text" id="inviteName" name="inviteName" placeholder="이름을 입력하세요.">
+			<input type="button" onclick="inviteSpace(<%=spaceDTO.getSpaceNo() %>);" value="초대">
+		</div>
+		<% } %>
+	</div>
 	</div>
 
 	<!-- Content Row -->

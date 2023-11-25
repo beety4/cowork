@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import basic.domain.room.dto.RoomDTO;
@@ -31,6 +32,9 @@ public class SpaceController {
 		// 왼쪽 space목록 반환
 		String name = details.getName();
 		sideBar(name, m);
+		
+		ArrayList<SpaceDTO> inviteList = spaceService.getInviteList(name);
+		m.addAttribute("inviteList", inviteList);
 		return "mainPage";
 	}
 	
@@ -54,14 +58,14 @@ public class SpaceController {
 		return "showSpace";
 	}
 	
-	@GetMapping("createSpace.do")
+	@GetMapping("/createSpace.do")
 	public String createSpace(@AuthenticationPrincipal PrincipalDetails details, Model m) {
 		// 왼쪽 space목록 반환
 		String name = details.getName();
 		sideBar(name, m);
 		return "createSpace";
 	}
-	@PostMapping("createSpace.do")
+	@PostMapping("/createSpace.do")
 	public String createSpace(@AuthenticationPrincipal PrincipalDetails details, Model m, SpaceDTO spaceDTO, MultipartFile file) {
 		// 왼쪽 space목록 반환
 		String name = details.getName();
@@ -74,6 +78,25 @@ public class SpaceController {
 		return "redirect:/showSpace.do?spaceNo=" + spaceNo;
 	}
 	
+	@ResponseBody
+	@PostMapping("/inviteSpace.do")
+	public int inviteSpace(SpaceUserDTO spaceUserDTO) {
+		return spaceService.inviteAction(spaceUserDTO);
+	}
+	
+	@ResponseBody
+	@PostMapping("/inviteAccept.do")
+	public int inviteAccept(@AuthenticationPrincipal PrincipalDetails details, int spaceNo) {
+		SpaceUserDTO spaceUserDTO = new SpaceUserDTO(spaceNo, details.getName());
+		return spaceService.inviteAccept(spaceUserDTO);
+	}
+	
+	@ResponseBody
+	@PostMapping("/inviteReject.do")
+	public int inviteReject(@AuthenticationPrincipal PrincipalDetails details, int spaceNo) {
+		SpaceUserDTO spaceUserDTO = new SpaceUserDTO(spaceNo, details.getName());
+		return spaceService.inviteReject(spaceUserDTO);
+	}
 	
 	
 }

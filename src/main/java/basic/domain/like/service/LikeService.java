@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import basic.domain.like.dto.LikeCntDTO;
 import basic.domain.like.dto.LikeDTO;
-import basic.domain.like.dto.LikeTypeDTO;
+import basic.domain.like.dto.RoomUserDTO;
 import basic.domain.like.mapper.LikeMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -20,43 +21,53 @@ public class LikeService {
 		likeMapper.addLike(likeDTO);
 	}
 	
-	public int isChecked(LikeDTO likeDTO) {
-		if(likeMapper.isChecked(likeDTO) == null) {
-			return -1;
-		}
+	public Integer isChecked(LikeDTO likeDTO) {
 		return likeMapper.isChecked(likeDTO);
 	}
-	
-	public ArrayList<LikeTypeDTO> getLike(LikeDTO likeDTO) {
-		ArrayList<LikeTypeDTO> list = likeMapper.getLike(likeDTO);
-		ArrayList<LikeTypeDTO> remake = new ArrayList<>();
-		
-		for(int i=0; i<6; i++) {
-			LikeTypeDTO likeTypeDTO = new LikeTypeDTO(i, 0);
-			remake.add(likeTypeDTO);
-		}
-		
-		if(list.size() != 0) {
-			for(int i=0; i<list.size(); i++) {
-				remake.set(list.get(i).getLikeType(), list.get(i));
-			}
-		}
-		return remake;
-	}
-	
 	
 	public void deleteLike(LikeDTO likeDTO) {
 		likeMapper.deleteLike(likeDTO);
 	}
 	
-	public ArrayList<LikeTypeDTO> likeAction(LikeDTO likeDTO) {
-		int getType = isChecked(likeDTO);
-		if(getType == likeDTO.getLikeType()) {
-			deleteLike(likeDTO);
-		} else if(getType == -1) {
+	public int deleteAfterCnt(LikeDTO likeDTO) {
+		return likeMapper.deleteAfterCnt(likeDTO);
+	}
+	
+	public boolean likeAction(LikeDTO likeDTO) {
+		if(isChecked(likeDTO) == null) {
 			addLike(likeDTO);
+			return true;
+		} else if(isChecked(likeDTO) == likeDTO.getLikeType()){
+			deleteLike(likeDTO);
+			if(deleteAfterCnt(likeDTO) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
 		}
-		return getLike(likeDTO);
+	}
+		
+	public ArrayList<LikeCntDTO> getLikeCntALL(RoomUserDTO ruDTO) {
+		return likeMapper.getLikeCntALL(ruDTO);
+	}
+	
+	public ArrayList<LikeCntDTO> getLikeActionCntALL(RoomUserDTO ruDTO, LikeDTO likeDTO) {
+		ArrayList<LikeCntDTO> list = new ArrayList<>();
+		if(likeAction(likeDTO) == false) {
+			LikeCntDTO likeCntDTO = new LikeCntDTO();
+			likeCntDTO.setBoardNo(likeDTO.getBoardNo());
+			likeCntDTO.setLikeType(likeDTO.getLikeType());
+			likeCntDTO.setCnt(0);
+			likeCntDTO.setTF(0);
+		
+			list.add(likeCntDTO);
+		} else {
+			list.addAll(likeMapper.getLikeCntALL(ruDTO));
+		}
+		
+		return list;
 	}
 	
 }

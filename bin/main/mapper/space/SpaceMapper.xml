@@ -42,4 +42,28 @@
 	<select id="getSpace" parameterType="int" resultType="basic.domain.space.dto.SpaceDTO">
 		SELECT * FROM space_table WHERE spaceNo = #{spaceNo}
 	</select>
+	
+	
+	<insert id="inviteSpace" parameterType="basic.domain.space.dto.SpaceUserDTO">
+		INSERT INTO space_invite_table(spaceNo, name) VALUES(#{spaceNo}, #{name})
+	</insert>
+	
+	<select id="deleteInvite" parameterType="basic.domain.space.dto.SpaceUserDTO">
+		DELETE FROM space_invite_table WHERE spaceNo = #{spaceNo} AND name = #{name}
+	</select>
+	
+	<select id="checkInvite" parameterType="basic.domain.space.dto.SpaceUserDTO" resultType="Integer">
+		SELECT COUNT(*) FROM space_invite_table WHERE spaceNo = #{spaceNo} AND name = #{name}
+	</select>
+	
+	<select id="isIncludeUser" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM user_table WHERE name = #{name}
+	</select>
+	
+	<select id="getInviteList" parameterType="String" resultType="basic.domain.space.dto.SpaceDTO">
+		SELECT A.* FROM space_table AS A
+		INNER JOIN space_invite_table AS B
+		on A.spaceNo = B.spaceNo
+		WHERE B.name = #{name}
+	</select>
 </mapper>

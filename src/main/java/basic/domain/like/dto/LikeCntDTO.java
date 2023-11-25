@@ -1,11 +1,11 @@
 package basic.domain.like.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class LikeTypeDTO {
+public class LikeCntDTO {
+	private int boardNo;
 	private int likeType;
 	private int cnt;
+	private int TF;
 }

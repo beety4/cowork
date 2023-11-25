@@ -84,6 +84,7 @@ function writeChatPage(myArr) {
 
 
 // 전송 시 DB 저장을 위한 비동기 처리
+// 근데.. 그냥 chatHandler에서 저장하면 됨..
 function saveChat(){
 	var roomNo = nowRoomNo;
 	var msg = document.getElementById("message").value;

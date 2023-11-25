@@ -89,4 +89,65 @@ public class SpaceService {
 		return spaceMapper.getSpace(spaceNo);
 	}
 	
+	
+	
+	public void inviteSpace(SpaceUserDTO spaceUserDTO) {
+		spaceMapper.inviteSpace(spaceUserDTO);
+	}
+	public void deleteInvite(SpaceUserDTO spaceUserDTO) {
+		spaceMapper.deleteInvite(spaceUserDTO);
+	}
+	public boolean checkInvite(SpaceUserDTO spaceUserDTO) {
+		Integer result = spaceMapper.checkInvite(spaceUserDTO);
+		if(result == null || result == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public boolean isIncludeUser(String name) {
+		Integer result = spaceMapper.isIncludeUser(name);
+		if(result == null || result == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	public int inviteAction(SpaceUserDTO spaceUserDTO) {
+		if(isIncludeUser(spaceUserDTO.getName()) == false) {
+			return 3;
+		}
+		// 이미 초대 상태일 경우
+		if(checkInvite(spaceUserDTO)) {
+			return 0;
+		} else {
+			if(isIncludeSpace(spaceUserDTO)) {
+				return 2;
+			} else {
+				inviteSpace(spaceUserDTO);
+				return 1;
+			}
+		}
+	}
+	
+	public ArrayList<SpaceDTO> getInviteList(String name) {
+		return spaceMapper.getInviteList(name);
+	}
+	
+	
+	public int inviteAccept(SpaceUserDTO spaceUserDTO) {
+		if(isIncludeSpace(spaceUserDTO)) {
+			return 1;
+		} else {
+			addSpaceMember(spaceUserDTO);
+			deleteInvite(spaceUserDTO);
+			return 0;
+		}
+	}
+	public int inviteReject(SpaceUserDTO spaceUserDTO) {
+		deleteInvite(spaceUserDTO);
+		return 0;
+	}
 }

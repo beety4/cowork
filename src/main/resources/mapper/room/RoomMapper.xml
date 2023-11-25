@@ -13,7 +13,7 @@
 	
 	<select id="getRoomBoardListWithLike" parameterType="int" resultType="basic.domain.room.dto.RoomBoardDTO">
 		SELECT * FROM room_board_table WHERE roomNo = ${roomNo}
-		
+		<!--
 		SELECT likeType, COUNT(*) AS cnt FROM room_board_likeC_table WHERE boardNo = #{boardNo}
 		GROUP BY likeType
 		
@@ -26,6 +26,7 @@
 		SELECT space_table.* FROM space_table
 		INNER JOIN space_user_table ON space_table.spaceNo = space_user_table.spaceNo
 		WHERE space_user_table.name = #{name}
+		-->
 	</select>
 
 	<insert id="createBoard" parameterType="basic.domain.room.dto.RoomBoardDTO">

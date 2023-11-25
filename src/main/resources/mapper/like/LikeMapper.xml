@@ -12,13 +12,20 @@
 		SELECT likeType FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
 	</select>
 
-	<select id="getLike" parameterType="int" resultType="basic.domain.like.dto.LikeTypeDTO">
-		SELECT likeType, COUNT(*) AS cnt FROM room_board_likeC_table WHERE boardNo = #{boardNo}
-		GROUP BY likeType
-	</select>
-
 	<delete id="deleteLike" parameterType="basic.domain.like.dto.LikeDTO">
 		DELETE FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
 	</delete>
+	
+	<select id="deleteAfterCnt" parameterType="basic.domain.like.dto.LikeDTO" resultType="int">
+		SELECT COUNT(*) FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND likeType = #{likeType}
+	</select>
 
+	<select id="getLikeCntALL" parameterType="basic.domain.like.dto.RoomUserDTO" resultType="basic.domain.like.dto.LikeCntDTO">
+		SELECT A.boardNo, A.likeType, COUNT(A.name) AS cnt, IF(SUM(IF(A.name = #{name}, 1, 0)) > 0, 1, 0) AS TF
+		FROM room_board_likeC_table AS A 
+        INNER JOIN room_board_table AS B
+		ON A.boardNo = B.boardNo 
+		WHERE B.roomNo = #{roomNo}
+		GROUP BY A.boardNo, A.likeType;
+	</select>
 </mapper>

@@ -7,8 +7,6 @@ window.addEventListener('DOMContentLoaded', function() {
 // 비동기 통신을 위한 함수
 function showRoom(roomli, roomNo){
 	var myArr = [];
-	var lType = [];
-	
 	document.getElementById("input-data").style.display = 'none';
 	
 	// 게시판 생성, 방 생성 가리기, 이름 설정
@@ -20,6 +18,7 @@ function showRoom(roomli, roomNo){
 		ws.close();
 	}
 
+	nowRoomNo = roomNo;
 	
     $.ajax({
     	url:"/showRoom.do",
@@ -29,12 +28,10 @@ function showRoom(roomli, roomNo){
         success: function(data){
 			$(data).each(function() {
 				var roomBoardDTO = [this.boardNo, this.roomNo, this.name, this.title, this.date, this.category, this.content];
-				//var likeTypeDTO = [this.likeTypeDTO.likeType, this.likeType.DTO.cnt];
 				myArr.push(roomBoardDTO);
-				//lType.push(likeTypeDTO);
 			});
 			addButton(roomNo);
-			writeBoardPage(myArr, lType);
+			writeBoardPage(myArr, roomNo);
         },
         error: function(request, status, error) {
 			alert("오류가 발생했습니다.");
@@ -97,10 +94,9 @@ function addRoom() {
 }
 
 // 비동기 통신 성공 후 board 처리
-function writeBoardPage(myArr, lType) {
+function writeBoardPage(myArr, roomNo) {
 	for(i = 0; i<myArr.length; i++) {
 		boardNo = myArr[i][0];
-		likeType = lType[i];
 		var content = `
 		<div class="container mt-5" id="${boardNo}">
     	<div class="card" style="width:600px;">
@@ -130,7 +126,7 @@ function writeBoardPage(myArr, lType) {
         		<img id="${boardNo}-img-5" src="/img/5.png" width="20px;" onclick="like(this, ${boardNo} , 5);">
         		<div id="${boardNo}-5" style="display: inline;">0</div>
         		
-        		<button onclick="comment();" style="float:right;">댓글</button>
+        		<button onclick="comment(${boardNo});" style="float:right;">댓글</button>
         	</div>
     	</div>
 		</div>
@@ -138,13 +134,17 @@ function writeBoardPage(myArr, lType) {
 		
 		$("#chating").append(content);
 	}
+	
+	getLikeByRoomNo(roomNo);
 }
 
 
 // 리스트 한번만 클릭!
 function clickdo() {
-	for(var i=1; i<30; i++) {
-		for(var j=1; j<10; j++) {
+	// 게시판,채팅방 요소 클릭 가능 설정인데 이상한 코드임!!
+	// 일단 임시로 진행하고 나중에 수정 필요
+	for(var i=1; i<100; i++) {
+		for(var j=1; j<100; j++) {
 			try {
 				var ele = getElementByXpath("//*[@id='chat-list']/ul["+i+"]/li["+j+"]");
 				ele.classList.add('clickdo');
