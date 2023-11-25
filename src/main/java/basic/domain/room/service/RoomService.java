@@ -38,4 +38,8 @@ public class RoomService {
 	public void createRoom(RoomDTO roomDTO) {
 		roomMapper.createRoom(roomDTO);
 	}
+	
+	public void deleteRoom(int roomNo) {
+		roomMapper.deleteRoom(roomNo);
+	}
 }

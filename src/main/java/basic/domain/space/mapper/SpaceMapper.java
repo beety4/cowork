@@ -19,6 +19,7 @@ public interface SpaceMapper {
 	public void createSampleRoomData1(int spaceNo);
 	public void createSampleRoomData2(int spaceNo);
 	public SpaceDTO getSpace(int spaceNo);
+	public void deleteSpace(int spaceNo);
 	
 	public void inviteSpace(SpaceUserDTO spaceUserDTO);
 	public void deleteInvite(SpaceUserDTO spaceUserDTO);

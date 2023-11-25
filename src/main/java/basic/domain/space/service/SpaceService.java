@@ -89,6 +89,10 @@ public class SpaceService {
 		return spaceMapper.getSpace(spaceNo);
 	}
 	
+	public void deleteSpace(int spaceNo) {
+		spaceMapper.deleteSpace(spaceNo);
+	}
+	
 	
 	
 	public void inviteSpace(SpaceUserDTO spaceUserDTO) {

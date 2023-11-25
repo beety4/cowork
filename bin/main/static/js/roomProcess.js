@@ -27,7 +27,7 @@ function showRoom(roomli, roomNo){
         data:{"value" : roomNo},
         success: function(data){
 			$(data).each(function() {
-				var roomBoardDTO = [this.boardNo, this.roomNo, this.name, this.title, this.date, this.category, this.content];
+				var roomBoardDTO = [this.boardNo, this.roomNo, this.name, this.title, this.date, this.category, this.content.replace(/(?:\r\n|\r|\n)/g, '<br>')];
 				myArr.push(roomBoardDTO);
 			});
 			addButton(roomNo);
@@ -98,7 +98,7 @@ function writeBoardPage(myArr, roomNo) {
 	for(i = 0; i<myArr.length; i++) {
 		boardNo = myArr[i][0];
 		var content = `
-		<div class="container mt-5" id="${boardNo}">
+		<div class="container mt-5" id="${boardNo}" style="display: flex;">
     	<div class="card" style="width:600px;">
         	<div class="card-header">
             	작성자: ${myArr[i][2]}
@@ -126,7 +126,7 @@ function writeBoardPage(myArr, roomNo) {
         		<img id="${boardNo}-img-5" src="/img/5.png" width="20px;" onclick="like(this, ${boardNo} , 5);">
         		<div id="${boardNo}-5" style="display: inline;">0</div>
         		
-        		<button onclick="comment(${boardNo});" style="float:right;">댓글</button>
+        		<button onclick="comment(this, ${boardNo});" style="float:right;">댓글</button>
         	</div>
     	</div>
 		</div>

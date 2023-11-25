@@ -3,29 +3,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="basic.domain.comment.mapper.CommentMapper">
-	<insert id="addLike" parameterType="basic.domain.like.dto.LikeDTO">
-		INSERT INTO room_board_likeC_table(boardNo, name, likeType)
-		VALUES(#{boardNo}, #{name}, #{likeType})
+	<select id="getComment" parameterType="int" resultType="basic.domain.comment.dto.CommentDTO">
+		SELECT * FROM room_board_comment_table WHERE boardNo = #{boardNo}
+	</select>
+	
+	<insert id="addComment" parameterType="basic.domain.comment.dto.CommentDTO">
+		INSERT INTO room_board_comment_table(boardNo, name, content) VALUES(#{boardNo}, #{name}, #{content})
 	</insert>
 	
-	<select id="isChecked" parameterType="basic.domain.like.dto.LikeDTO" resultType="Integer">
-		SELECT likeType FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
-	</select>
-
-	<delete id="deleteLike" parameterType="basic.domain.like.dto.LikeDTO">
-		DELETE FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND name = #{name}
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM room_board_comment_table WHERE commentNo = #{commentNo}
 	</delete>
-	
-	<select id="deleteAfterCnt" parameterType="basic.domain.like.dto.LikeDTO" resultType="int">
-		SELECT COUNT(*) FROM room_board_likeC_table WHERE boardNo = #{boardNo} AND likeType = #{likeType}
-	</select>
-
-	<select id="getLikeCntALL" parameterType="basic.domain.like.dto.RoomUserDTO" resultType="basic.domain.like.dto.LikeCntDTO">
-		SELECT A.boardNo, A.likeType, COUNT(A.name) AS cnt, IF(SUM(IF(A.name = #{name}, 1, 0)) > 0, 1, 0) AS TF
-		FROM room_board_likeC_table AS A 
-        INNER JOIN room_board_table AS B
-		ON A.boardNo = B.boardNo 
-		WHERE B.roomNo = #{roomNo}
-		GROUP BY A.boardNo, A.likeType;
-	</select>
 </mapper>

@@ -38,4 +38,8 @@
 		INSERT INTO room_table(roomNo, spaceNo, roomName, roomType)
 		VALUES(#{roomNo}, #{spaceNo}, #{roomName}, #{roomType})
 	</insert>
+	
+	<delete id="deleteRoom" parameterType="int">
+		DELETE FROM room_board_table WHERE boardNo = #{boardNo}
+	</delete>
 </mapper>

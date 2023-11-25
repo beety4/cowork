@@ -13,4 +13,5 @@ public interface RoomMapper {
 	public ArrayList<RoomBoardDTO> getRoomBoardList(int roomNo);
 	public void createBoard(RoomBoardDTO roomBoardDTO);
 	public void createRoom(RoomDTO roomDTO);
+	public void deleteRoom(int roomNo);
 }

@@ -19,6 +19,10 @@
 	overflow-y : auto;
 }
 
+.comment-area {
+	height: 150px;
+	overflow-y : auto;
+}
 
 /* 게시판 채팅방 선택 결과 */
 .clickdo {

@@ -43,6 +43,10 @@
 		SELECT * FROM space_table WHERE spaceNo = #{spaceNo}
 	</select>
 	
+	<delete id="deleteSpace" parameterType="int">
+		DELETE FROM space_table WHERE spaceNo = #{spaceNo}
+	</delete>
+	
 	
 	<insert id="inviteSpace" parameterType="basic.domain.space.dto.SpaceUserDTO">
 		INSERT INTO space_invite_table(spaceNo, name) VALUES(#{spaceNo}, #{name})
